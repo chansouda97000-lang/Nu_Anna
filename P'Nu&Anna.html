@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy 1 Year Anniversary 🤍</title>
+
+<style>
+* { box-sizing: border-box }
+
+body {
+    margin: 0;
+    font-family: "Broadway", sans-serif;
+    background: #fff7f2;
+    overflow-x: hidden;
+}
+
+/* HEART */
+.heart {
+    position: fixed;
+    bottom: -20px;
+    font-size: 18px;
+    animation: floatUp 6s linear infinite;
+}
+
+@keyframes floatUp {
+    0% { transform: translateY(0); opacity: 0 }
+    10% { opacity: 1 }
+    100% { transform: translateY(-110vh); opacity: 0 }
+}
+
+/* HEADER */
+.header {
+    height: 420px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    position: relative;
+    border-radius: 0 0 60px 60px;
+    overflow: hidden;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: #f5dddd;
+}
+
+.header::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(134,130,130,0.4);
+}
+
+.header-content {
+    position: relative;
+    z-index: 1;
+}
+
+/* NAV */
+.navbar {
+    background: white;
+    margin: 20px auto;
+    padding: 10px;
+    border-radius: 30px;
+    text-align: center;
+    max-width: 500px;
+    box-shadow: 0 8px 20px rgba(0,0,0,.08);
+}
+
+.navbar a {
+    display: inline-block;
+    padding: 12px 22px;
+    margin: 5px;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: bold;
+    color: #5c3a1e;
+}
+
+.navbar a.active,
+.navbar a:hover {
+    background: #d7b28a;
+    color: white;
+}
+
+/* MUSIC BUTTON */
+.music-btn {
+    display: inline-block;
+    margin: 10px auto;
+    padding: 12px 26px;
+    border-radius: 25px;
+    background: #f1b7c7;
+    color: white;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+}
+
+/* CONTENT */
+.container {
+    display: flex;
+    justify-content: center;
+    padding: 30px;
+}
+
+.memory {
+    background: white;
+    padding: 25px;
+    border-radius: 30px;
+    max-width: 500px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 10px 25px rgba(0,0,0,.08);
+    animation: fade .5s ease;
+}
+
+@keyframes fade {
+    from { opacity: 0; transform: translateY(15px) }
+    to { opacity: 1; transform: translateY(0) }
+}
+
+.memory img {
+    width: 100%;
+    max-width: 420px;
+    margin: 20px auto;
+    display: block;
+    border-radius: 20px;
+}
+
+.video-btn {
+    padding: 12px 26px;
+    border-radius: 30px;
+    background: linear-gradient(135deg,#f1b7c7,#d78aa8);
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    display: inline-block;
+    margin-bottom: 15px;
+}
+
+/* MODAL (ปรับใหม่ให้เล็กลง) */
+.modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+}
+
+.modal-content {
+    background: white;
+    padding: 15px;
+    border-radius: 25px;
+    width: 90%;
+    max-width: 420px;
+    position: relative;
+    animation: fade .3s ease;
+}
+
+.modal video {
+    width: 100%;
+    max-height: 60vh;
+    border-radius: 15px;
+}
+
+.close {
+    position: absolute;
+    top: 8px;
+    right: 15px;
+    font-size: 22px;
+    font-weight: bold;
+    cursor: pointer;
+    color: #555;
+}
+
+.footer {
+    margin: 40px auto;
+    padding: 30px;
+    background: white;
+    border-radius: 30px;
+    text-align: center;
+    max-width: 500px;
+    box-shadow: 0 10px 25px rgba(0,0,0,.08);
+}
+</style>
+</head>
+
+<body>
+
+<audio id="bgMusic" loop>
+    <source src="Cocktail song.mp3" type="audio/mpeg">
+</audio>
+
+<div class="header" id="header">
+    <div class="header-content">
+        <h1>Happy Anniversary 💝</h1>
+        <h3>ขอบคุณที่อยู่เคียงข้างกันเสมอนะคะเบบี๋</h3>
+        <p id="daysTogether"></p>
+    </div>
+</div>
+
+<div class="navbar">
+    <a href="#" class="active" onclick="load(0,this)">ความทรงจำ 1</a>
+    <a href="#" onclick="load(1,this)">ความทรงจำ 2</a>
+    <a href="#" onclick="load(2,this)">ความทรงจำ 3</a>
+    <a href="#" onclick="load(3,this)">Love u forever 💕</a>
+</div>
+
+<div style="text-align:center;">
+    <button id="musicBtn" class="music-btn" onclick="toggleMusic()">🎵 เปิดเพลง</button>
+</div>
+
+<div class="container" id="content"></div>
+
+<div class="modal" id="modal">
+    <div class="modal-content">
+        <div class="close" onclick="closeVideo()">✖</div>
+        <video id="video" controls></video>
+    </div>
+</div>
+
+<div class="footer">
+    <h3>🤍 1 Year Down, Forever To Go 🤍</h3>
+    <p>รักเสมอ และ ตลอดไป</p>
+</div>
+
+<script>
+const header = document.getElementById("header");
+const bg = ["a.jpeg", "b.jpeg", "c.jpeg"];
+let i = 0;
+setInterval(() => {
+    header.style.backgroundImage = `url('${bg[i]}')`;
+    i = (i + 1) % bg.length;
+}, 4000);
+
+const start = new Date("2025-08-03");
+document.getElementById("daysTogether").innerText =
+`เราคบกันมาแล้ว ${Math.floor((new Date() - start) / 86400000)} วัน 💖`;
+
+setInterval(() => {
+    const h = document.createElement("div");
+    h.className = "heart";
+    h.style.left = Math.random() * 100 + "vw";
+    h.innerHTML = Math.random() > 0.5 ? "🤍" : "❤️";
+    document.body.appendChild(h);
+    setTimeout(() => h.remove(), 6000);
+}, 800);
+
+const music = document.getElementById("bgMusic");
+let isPlaying = false;
+
+function toggleMusic() {
+    if (!isPlaying) {
+        music.volume = 0.4;
+        music.play();
+        document.getElementById("musicBtn").innerText = "🔊 ปิดเพลง";
+        isPlaying = true;
+    } else {
+        music.pause();
+        document.getElementById("musicBtn").innerText = "🎵 เปิดเพลง";
+        isPlaying = false;
+    }
+}
+
+const data = [
+{ title: "เจอกันวันแรก 🌸", img: "d.jpeg", video: "D.mp4", text: "วันแรกที่เราเจอกัน ไม่รู้หนูคิดไปเองคนเดียวบ่ ว่าเบบี๋เขินหนูแต่เบบี๋น่ารักดีเธอเป็นคนที่ทำให้รู้สึกดีตลอดเวลารู้สีกอบอุ่นแต่ก็ถือว่ายังกล้าอยู่ทีจีบหนูเธอจีบติดเพราะกล้าบอกว่าขอจีบ นี่แหละชอบผู้ชายขี้อายแต่กล้าแบบนี้แหละ เธอจะกล้าเพราะอะไรไม่รู้แค่กล้าจริงใจไม่โกหกก็ติดแล้ว ชอบอ่าาาาเธอโคตรน่ารัก" },
+{ title: "ไปคอนเสิร์ต 🎶", img: "e.jpeg", video: "E.mp4", text: "มีอะไรจะสาระภาพ ความจริงไม่ได้อยากไปหรอกคอนเสิร์ตอ่ะ อยากไปเจอเธอมากกว่าสังเกตได้ว่าอยู่ในคอนฉันไม่สนใจอะไรเลย แต่ถ้าไม่หาชวนไปนั่นไปนี่ก็ไม่ได้เจอกันสักที" },
+{ title: "ไปเที่ยวด้วยกัน 🖼️", img: "f.jpeg", video: "F.mp4", text: "เป็นโมเมนต์ที่หนูมีความสุขมากๆได้อยู่กับเบบี๋ได้ไปเที่ยวด้วยกัน อยากไปเที่ยวกับเบบี๋อีกไปด้วยกันทุกที่ อยากให้มีเบบี๋อยู่ด้วยตลอดทุกที่ที่ไป" },
+{ title: "อนาคตของเรา 💕", img: "g.jpeg", video: "G.mp4", text: "อนาคตของเราหนูไม่รู้หรอกต่อไปมันจะเป็นยังไง แต่หนูรักพี่นุเสมอ อยู่แก้ปัญหาของเราไปด้วยกันนะหนูจะพยายามแก้มันทุกอย่างให้เราอยู่ด้วยกันไปจนเราแก่ตายจากกันนู่น😂 ช่วยกันสร้างช่วยกันหาเงินมาแต่งเอาเด้ออยากอยู่ด้วยแล้ว อยากสร้างครอบครัวที่สมบูรฌ์แบบกับเธอนะคนดีย์ รักพี่นุน๊าาา จุ๊บๆๆๆๆ😘😘" }
+];
+
+function load(n, el) {
+document.querySelectorAll('.navbar a').forEach(a => a.classList.remove('active'));
+el.classList.add('active');
+const m = data[n];
+document.getElementById("content").innerHTML = `
+<div class="memory">
+<h2>${m.title}</h2>
+<img src="${m.img}">
+<div class="video-btn" onclick="openVideo('${m.video}')">▶ ดูคลิป</div>
+<p>${m.text}</p>
+</div>`;
+}
+
+function openVideo(src) {
+const v = document.getElementById("video");
+v.src = src;
+document.getElementById("modal").style.display = "flex";
+v.play();
+}
+
+function closeVideo() {
+const v = document.getElementById("video");
+v.pause();
+v.src = "";
+document.getElementById("modal").style.display = "none";
+}
+
+/* ปิดเมื่อกดพื้นหลัง */
+document.getElementById("modal").addEventListener("click", function(e){
+if(e.target === this){
+closeVideo();
+}
+});
+
+load(0, document.querySelector('.navbar a'));
+</script>
+
+</body>
+</html>
